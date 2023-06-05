@@ -1,0 +1,30 @@
+@page "/SingleResponsibility"
+
+@code {
+    // Book and BookPrinter classes separated by concerns (SRP)
+    public class Book
+    {
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public int Pages { get; set; }
+    }
+
+    public class BookPrinter
+    {
+        public void PrintBookDetails(Book book)
+        {
+            // Print book details
+        }
+    }
+
+    // Using the Book and BookPrinter classes
+    Book book = new Book();
+    BookPrinter bookPrinter = new BookPrinter();
+
+    //...
+}
+
+<!-- Displaying the book's details -->
+<div>
+    <!-- Book details displayed here -->
+</div>

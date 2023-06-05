@@ -1,0 +1,64 @@
+@page "/DependencyInversion"
+
+@code {
+    // Interfaces and classes (DIP)
+    public interface IRepository<T>
+    {
+        void Add(T entity);
+        void Delete(T entity);
+        IEnumerable<T> GetAll();
+    }
+
+    public class Book
+    {
+        // Properties for Book
+    }
+
+    public class BookRepository : IRepository<Book>
+    {
+        public void Add(Book book)
+        {
+            // Implementation for adding a book
+        }
+
+        public void Delete(Book book)
+        {
+            // Implementation for deleting a book
+        }
+
+        public IEnumerable<Book> GetAll()
+        {
+            // Implementation for getting all books
+            return new List<Book>();
+        }
+    }
+
+    public class Library
+    {
+        private IRepository<Book> _bookRepository;
+
+        // Depend on abstraction, not on concrete class
+        public Library(IRepository<Book> bookRepository)
+        {
+            _bookRepository = bookRepository;
+        }
+
+        //...
+    }
+
+    // Using the Library class with a dependency
+    IRepository<Book> bookRepository;
+    Library library;
+
+    protected override void OnInitialized()
+    {
+        bookRepository = new BookRepository();
+        library = new Library(bookRepository);
+        base.OnInitialized();
+    }
+}
+
+<!-- Displaying the library's books -->
+<div>
+    <!-- Library's books displayed here -->
+</div>

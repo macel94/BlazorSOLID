@@ -1,0 +1,37 @@
+@page "/InterfaceSegregation"
+
+@code {
+    // Interfaces and classes (ISP)
+    public interface IFlyable
+    {
+        void Fly();
+    }
+
+    public interface ISwimmable
+    {
+        void Swim();
+    }
+
+    public class Duck : IFlyable, ISwimmable
+    {
+        public void Fly()
+        {
+            // Implementation for duck flying
+        }
+
+        public void Swim()
+        {
+            // Implementation for duck swimming
+        }
+    }
+
+    // Using the Duck class
+    Duck duck = new Duck();
+
+    //...
+}
+
+<!-- Displaying the duck's abilities -->
+<div>
+    <!-- Duck's abilities displayed here -->
+</div>

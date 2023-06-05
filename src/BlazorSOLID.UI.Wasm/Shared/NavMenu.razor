@@ -1,16 +1,26 @@
-﻿@inject NavigationManager navigationmanager
+﻿@using BlazorSOLID.UI.Wasm.Components;
+@inject NavigationManager navigationmanager
 
-<h1 class="head">FluentUI Web Components</h1>
+<h1 class="head">Menu</h1>
 <ul>
-    <li>
-        <FluentAnchor Href="counter" Appearance=@SetAppearance("Counter")>Counter</FluentAnchor>
-    </li>
-    <li>
-        <FluentAnchor Href="fetchdata" Appearance=@SetAppearance("FetchData")>Fetch Data</FluentAnchor>
-    </li>
+    @foreach (var item in listedComponents)
+    {
+        var shownName = item.Replace("Component", "");
+        <li>
+            <FluentAnchor Href="@(shownName.ToLower())" Appearance=@SetAppearance(shownName)>@shownName Principle</FluentAnchor>
+        </li>
+    }
 </ul>
 
 @code {
+    readonly static List<string> listedComponents = new List<string>
+    {
+        nameof(SingleResponsibilityComponent),
+        nameof(OpenClosedComponent),
+        nameof(LiskovSubstitutionComponent),
+        nameof(InterfaceSegregationComponent),
+        nameof(DependencyInversionComponent)
+    };
     private string? target;
 
     protected override void OnInitialized()
@@ -30,5 +40,4 @@
     }
 
     private Appearance SetAppearance(string location) => (string.Equals(location, target, StringComparison.OrdinalIgnoreCase)) ? Appearance.Neutral : Appearance.Stealth;
-
 }

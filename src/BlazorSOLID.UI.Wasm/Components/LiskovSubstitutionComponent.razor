@@ -1,0 +1,36 @@
+@page "/LiskovSubstitution"
+
+@code {
+    // Base class and derived classes (LSP)
+    public abstract class Bird
+    {
+        public abstract void Fly();
+    }
+
+    public class Sparrow : Bird
+    {
+        public override void Fly()
+        {
+            // Implementation for sparrow flying
+        }
+    }
+
+    public class Ostrich : Bird
+    {
+        public override void Fly()
+        {
+            // Implementation for ostrich flying (this is actually a violation of LSP)
+        }
+    }
+
+    // Using the Bird classes
+    Bird sparrow = new Sparrow();
+    Bird ostrich = new Ostrich();
+
+    //...
+}
+
+<!-- Displaying the birds' flying abilities -->
+<div>
+    <!-- Birds' flying abilities displayed here -->
+</div>
