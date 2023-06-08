@@ -1,30 +1,93 @@
 @page "/SingleResponsibility"
 
-@code {
-    // Book and BookPrinter classes separated by concerns (SRP)
-    public class Book
+<!-- Displaying the code and the output -->
+<div>
+    <h2>Good Design (SRP Adherence):</h2>
+    <pre>
+    &lt;code&gt;
+    string? bookDetails;
+    string? bookPublishYear;
+
+    protected override void OnInitialized()
     {
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public int Pages { get; set; }
+        bookDetails = bookPrinter.PrintBookDetails(book);
+        bookPublishYear = bookPublisher.PrintPublishYear();
     }
 
-    public class BookPrinter
+    // Book record separated by concerns (SRP)
+    record Book(string Title, string Author, int Pages);
+
+    // BookPrinter class separated by concerns (SRP)
+    class BookPrinter
     {
-        public void PrintBookDetails(Book book)
+        public string PrintBookDetails(Book book)
         {
             // Print book details
+            return $"Title: {book.Title}, Author: {book.Author}, Pages: {book.Pages}";
         }
     }
 
-    // Using the Book and BookPrinter classes
-    Book book = new Book();
+    // BookPublisher class separated by concerns (SRP)
+    class BookPublisher
+    {
+        public string? PublishYear { get; set; }
+
+        public string PrintPublishYear()
+        {
+            // Print Publish Year
+            return $"Year Published: {PublishYear}";
+        }
+    }
+
+    // Using the Book, BookPrinter and BookPublisher classes
+    Book book = new Book(Title: "The Great Gatsby", Author: "F. Scott Fitzgerald", Pages: 180);
+    BookPublisher bookPublisher = new BookPublisher { PublishYear = "1925" };
     BookPrinter bookPrinter = new BookPrinter();
+    &lt;/code&gt;
+    </pre>
 
-    //...
-}
-
-<!-- Displaying the book's details -->
-<div>
-    <!-- Book details displayed here -->
+    <h3>Actual code at work:</h3>
+    <p>@bookDetails</p>
+    <p>@bookPublishYear</p>
 </div>
+
+@code {
+    string? bookDetails;
+    string? bookPublishYear;
+
+    protected override void OnInitialized()
+    {
+        bookDetails = bookPrinter.PrintBookDetails(book);
+        bookPublishYear = bookPublisher.PrintPublishYear();
+    }
+
+    // Book record separated by concerns (SRP)
+    record Book(string Title, string Author, int Pages);
+
+    // BookPrinter class separated by concerns (SRP)
+    class BookPrinter
+    {
+        public string PrintBookDetails(Book book)
+        {
+            // Print book details
+            return $"Title: {book.Title}, Author: {book.Author}, Pages: {book.Pages}";
+        }
+    }
+
+    // BookPublisher class separated by concerns (SRP)
+    class BookPublisher
+    {
+        public string? PublishYear { get; set; }
+
+        public string PrintPublishYear()
+        {
+            // Print Publish Year
+            return $"Year Published: {PublishYear}";
+        }
+    }
+
+    // Using the Book, BookPrinter and BookPublisher classes
+    Book book = new Book(Title: "The Great Gatsby", Author: "F. Scott Fitzgerald", Pages: 180);
+    BookPublisher bookPublisher = new BookPublisher { PublishYear = "1925" };
+    BookPrinter bookPrinter = new BookPrinter();
+}
